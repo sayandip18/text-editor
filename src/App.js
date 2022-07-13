@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { BoldExtension, ItalicExtension } from 'remirror/extensions';
+import { Remirror, useRemirror } from '@remirror/react';
+
+import 'remirror/styles/all.css';
 
 function App() {
+  const { manager, state } = useRemirror({
+    extensions: () => [new BoldExtension(), new ItalicExtension()],
+    content: '<p>I love <b>Remirror</b></p>',
+    selection: 'start',
+    stringHandler: 'html',
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="remirror-theme">
+     <Remirror manager={manager} initialContent={state} />
     </div>
   );
 }
